@@ -1,0 +1,64 @@
+#Gestures
+#activity_main.xml
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/gesture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="gesture"/>
+
+</FrameLayout>
+
+##MainActivity.kt
+package com.yash.gestures
+
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.util.Log
+import android.view.MotionEvent
+import android.widget.TextView
+
+
+private const val TAG = "Gesture";
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        var gesture = findViewById<TextView>(R.id.gesture)
+        return when(event?.action){
+            MotionEvent.ACTION_DOWN->{
+                Log.d(TAG,"Action was down")
+                gesture.text = "Action was down"
+                true
+            }
+            MotionEvent.ACTION_MOVE->{
+                Log.d(TAG,"Action was move")
+                gesture.text = "Action was move"
+                true
+            }
+            MotionEvent.ACTION_UP->{
+                Log.d(TAG,"Action was up")
+                gesture.text = "Action was up"
+                true
+            }
+            MotionEvent.ACTION_CANCEL->{
+                Log.d(TAG,"Action was cancel")
+                gesture.text = "Action was cancel"
+                true
+            }
+            else->super.onTouchEvent(event);
+        }
+
+    }
+}
